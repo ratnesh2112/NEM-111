@@ -3,6 +3,7 @@ const express = require('express');
 const { connection } = require('./config');
 const { userModel } = require('./Model/usermodel');
 const jwt = require('jsonwebtoken');
+const dataModel = require('./Model/datamodel');
 
 const app = express();
 
@@ -16,6 +17,15 @@ app.post("/signup",async(req,res) =>{
    newUser.save();
 
    res.send("SignUp sucessfull")
+})
+
+app.post("/data" ,async (req,res) =>{
+    const {name,phone} = req.body;
+
+    const newdata = new dataModel({name,phone});
+
+    newdata.save()
+    res.send("data saved")
 })
 
 app.post("/login" ,async (req,res) =>{
